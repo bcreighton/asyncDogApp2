@@ -1,15 +1,23 @@
 'use strict';
 
 function getDogImages(dogs){
-    console.log('generating dog images...');
     fetch(`https://dog.ceo/api/breeds/image/random/${dogs}`)
         .then(response => response.json())
-        .then(responseJSON =>console.log(responseJSON.message))
+        .then(responseJSON => {
+            const dogImages = responseJSON.message;
+
+            for(let i=0; i<dogImages.length; i++){
+               $('.dogImageContainer').append(
+                   `<img src="${dogImages[i]}" class='dogImage'>`
+                )
+            }
+        })
         .catch(error => console.log('An error has occured; please try again.'));
+        
+        $('.dogImageContainer').removeClass('hidden');
 }
 
 function formListener(){
-    console.log('listening for form submission...');
     $('form').submit(event => {
         event.preventDefault();
 
@@ -19,6 +27,5 @@ function formListener(){
 }
 
 $(function() {
-    console.log('Application has loaded.');
     formListener();
 })
