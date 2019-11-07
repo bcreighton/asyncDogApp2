@@ -5,12 +5,14 @@ function getDogImages(dogs){
         .then(response => response.json())
         .then(responseJSON => {
             const dogImages = responseJSON.message;
+            let  dogImagesHTML = '';
 
             for(let i=0; i<dogImages.length; i++){
-               $('.dogImageContainer').append(
-                   `<img src="${dogImages[i]}" class='dogImage'>`
-                )
+                debugger;
+                dogImagesHTML = dogImagesHTML + `<img src="${dogImages[i]}" class='dogImage'>\n`;
             }
+
+            $('.dogImageContainer').html(dogImagesHTML);
         })
         .catch(error => console.log('An error has occured; please try again.'));
         
